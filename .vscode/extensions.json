@@ -1,1 +1,8 @@
-{ "recommendations": ["expo.vscode-expo-tools"] }
+{
+  "recommendations": [
+    "expo.vscode-expo-tools",
+    "dbaeumer.vscode-eslint", // Essencial para o TAP rodar em tempo real
+    "arcanis.vscode-zipfs", // Se usar Berry/Yarn/Bun as vezes ajuda
+    "yoavbls.vscode-test-explorer" // Para o Vitest
+  ]
+}
