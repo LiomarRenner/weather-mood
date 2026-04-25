@@ -1,7 +1,13 @@
 {
+  "editor.formatOnSave": false, // Desliga formatadores genéricos
   "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit",
-    "source.organizeImports": "explicit",
-    "source.sortMembers": "explicit"
-  }
+    "source.fixAll.eslint": "explicit", // Força o TAP a corrigir tudo (semi, quotes, etc)
+    "source.organizeImports": "never", // Desliga o nativo, pois o 'import/order' do TAP já faz isso
+    "source.sortMembers": "never" // Opcional: o TAP já cuida da lógica de membros se configurado
+  },
+  "eslint.validate": [
+    "typescript",
+    "typescriptreact"
+  ],
+  "eslint.workingDirectories": [{ "mode": "auto" }]
 }
