@@ -21,6 +21,7 @@ export type ThemeTokens = {
     readonly md: number
     readonly lg: number
     readonly xl: number
+    readonly xxl: number
   }
 readonly typography: {
     readonly family: {
@@ -56,6 +57,7 @@ const sharedTokens = {
     md: 16,
     lg: 24,
     xl: 32,
+    xxl: 64,
   },
   typography: {
     family: {

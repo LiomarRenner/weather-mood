@@ -5,8 +5,9 @@ import { StyleSheet } from 'react-native'
 import { useTheme, useThemedStyles, type ThemeTokens } from '@/core/theme'
 
 export default function TabLayout (): ReactNode {
-  const { colors, spacing } = useTheme()
+  const { colors, spacing, typography } = useTheme()
   const styles = useThemedStyles(createStyles)
+
   // TODO O auth orquestrara futuramente
   const isLogged = true
 
@@ -21,11 +22,12 @@ export default function TabLayout (): ReactNode {
             elevation: 0,
             borderTopWidth: 0,
             backgroundColor: colors.surface,
-            height: 64,       
+            height: spacing.xxl,       
             paddingBottom: spacing.sm,
           },
           tabBarLabelStyle: {
-            fontSize: 12,
+            fontSize: typography.size.caption,
+            fontFamily: typography.family.medium,
           },
         }}
       >
