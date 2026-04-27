@@ -5,22 +5,27 @@ import { StyleSheet } from 'react-native'
 import { useTheme, useThemedStyles, type ThemeTokens } from '@/core/theme'
 
 export default function TabLayout (): ReactNode {
-  const { colors } = useTheme()
+  const { colors, spacing } = useTheme()
   const styles = useThemedStyles(createStyles)
   // TODO O auth orquestrara futuramente
   const isLogged = true
 
-
   return (
-    // TODO usar theme provider
     <SafeAreaView style={styles.container} edges={['top']}>
       <Tabs
         screenOptions={{
           headerShown: false,
+          tabBarActiveTintColor: colors.tint,
+          tabBarInactiveTintColor: colors.iconDefault,
           tabBarStyle: {
             elevation: 0,
             borderTopWidth: 0,
-            backgroundColor: colors.backgroundColor,
+            backgroundColor: colors.surface,
+            height: 64,       
+            paddingBottom: spacing.sm,
+          },
+          tabBarLabelStyle: {
+            fontSize: 12,
           },
         }}
       >
@@ -33,11 +38,11 @@ export default function TabLayout (): ReactNode {
   )
 }
 
-function createStyles(colors: ThemeTokens) {
+function createStyles(theme: ThemeTokens) {
   return StyleSheet.create({
     container: {
       flex: 1, 
-      backgroundColor: colors.backgroundColor,
+      backgroundColor: theme.colors.background,
     },
   })
 }

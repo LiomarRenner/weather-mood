@@ -27,8 +27,15 @@ void preventAutoHideAsync().catch(function () {
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-    ...FontAwesome.font,
+    // Cabinet Grotesk (Locais)
+    'Cabinet-Thin': require('../assets/fonts/CabinetGrotesk-Thin.otf'),
+    'Cabinet-ExtraLight': require('../assets/fonts/CabinetGrotesk-Extralight.otf'),
+    'Cabinet-Light': require('../assets/fonts/CabinetGrotesk-Light.otf'),
+    'Cabinet-Regular': require('../assets/fonts/CabinetGrotesk-Regular.otf'),
+    'Cabinet-Medium': require('../assets/fonts/CabinetGrotesk-Medium.otf'),
+    'Cabinet-Bold': require('../assets/fonts/CabinetGrotesk-Bold.otf'),
+    'Cabinet-ExtraBold': require('../assets/fonts/CabinetGrotesk-Extrabold.otf'),
+    'Cabinet-Black': require('../assets/fonts/CabinetGrotesk-Black.otf'),
   })
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.

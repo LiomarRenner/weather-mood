@@ -2,8 +2,8 @@ import { useColorScheme } from 'react-native'
 import { useMemo, useRef } from 'react'
 import { DefaultLightTheme, DefaultDarkTheme, type ThemeTokens } from './tokens'
 
-type ThemeState = {
-  readonly colors: ThemeTokens
+// O State agora é a união dos Tokens + Metadados do sistema
+type ThemeState = ThemeTokens & {
   readonly isDark: boolean
   readonly scheme: 'light' | 'dark'
 }
@@ -11,26 +11,24 @@ type ThemeState = {
 export function useTheme(): ThemeState {
   const systemScheme = useColorScheme() ?? 'light'
   
-  // O memo garante que o objeto retornado seja o MESMO na memória 
-  // enquanto o scheme do sistema não mudar.
   return useMemo(() => {
     const isDark = systemScheme === 'dark'
-    const colors = isDark ? DefaultDarkTheme : DefaultLightTheme
+    const theme = isDark ? DefaultDarkTheme : DefaultLightTheme
 
     return {
-      colors,
+      ...theme, // colors, spacing e typography
       isDark,
       scheme: systemScheme,
     } as const
   }, [systemScheme])
 }
 
-export function useThemedStyles<T>(factory: (colors: ThemeTokens) => T): T {
-  const { colors } = useTheme()
+export function useThemedStyles<T>(factory: (theme: ThemeTokens) => T): T {
+  const theme = useTheme() // Agora theme contém tudo
   
-  // Usamos ref para evitar que a factory mude a dependência do useMemo
   const factoryRef = useRef(factory)
   factoryRef.current = factory
 
-  return useMemo(() => factoryRef.current(colors), [colors])
+  // Passamos o objeto completo de tokens para a factory
+  return useMemo(() => factoryRef.current(theme), [theme])
 }
