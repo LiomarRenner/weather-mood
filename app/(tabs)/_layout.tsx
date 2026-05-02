@@ -3,13 +3,14 @@ import type { ReactNode } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { StyleSheet } from 'react-native'
 import { useTheme, useThemedStyles, type ThemeTokens } from '@/core/theme'
+import { UIIcon } from '@/core/ui/ui-icon'
 
 export default function TabLayout (): ReactNode {
   const { colors, spacing, typography } = useTheme()
   const styles = useThemedStyles(createStyles)
 
   // TODO O auth orquestrara futuramente
-  const isLogged = true
+  const isLogged = false
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
@@ -31,10 +32,18 @@ export default function TabLayout (): ReactNode {
           },
         }}
       >
-        <Tabs.Screen name="index" options={{ tabBarLabel: 'Home' }} />
-        <Tabs.Screen name="market" options={{ tabBarLabel: 'Market' }} />
-        <Tabs.Screen name="profile" options={{ tabBarLabel: 'Profile', href: isLogged ? '/profile' : null }} />
-        <Tabs.Screen name="favorites" options={{ tabBarLabel: 'Favorites', href: isLogged ? '/favorites' : null }} />
+        <Tabs.Screen name="index" options={{ tabBarLabel: 'Home', tabBarIcon: ({ color }) => (
+          <UIIcon name="house" color={color === colors.tint ? 'tint' : 'muted'} />
+        ) }} />
+        <Tabs.Screen name="market" options={{ tabBarLabel: 'Market', tabBarIcon: ({ color }) => (
+          <UIIcon name="store-front" color={color === colors.tint ? 'tint' : 'muted'} />
+        ) }} />
+        <Tabs.Screen name="profile" options={{ tabBarLabel: 'Profile', href: isLogged ? '/profile' : null, tabBarIcon: ({ color }) => (
+          <UIIcon name="user-circle" color={color === colors.tint ? 'tint' : 'muted'} />
+        )}} />
+        <Tabs.Screen name="favorites" options={{ tabBarLabel: 'Favorites', href: isLogged ? '/favorites' : null, tabBarIcon: ({ color }) => (
+          <UIIcon name="heart" color={color === colors.tint ? 'tint' : 'muted'} />
+        ) }} />
       </Tabs>
     </SafeAreaView>
   )
