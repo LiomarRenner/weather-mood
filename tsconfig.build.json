@@ -1,0 +1,11 @@
+// tsconfig.build.json
+{
+  "extends": "./tsconfig",
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",    // Exclude Vitest tests
+    "**/*.test.ts",    
+    "**/__tests__/*",
+    "src/test-utils/*" // Exclude test helpers
+  ]
+}

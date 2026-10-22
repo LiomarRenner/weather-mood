@@ -1,59 +1,59 @@
-import React from 'react';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
+import { Tabs } from 'expo-router'
+import type { ReactNode } from 'react'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { StyleSheet } from 'react-native'
+import { useTheme, useThemedStyles, type ThemeTokens } from '@/core/theme'
+import { UIIcon } from '@/core/ui/ui-icon'
 
-import Colors from '@/constants/Colors';
-import { useColorScheme } from '@/components/useColorScheme';
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+export default function TabLayout (): ReactNode {
+  const { colors, spacing, typography } = useTheme()
+  const styles = useThemedStyles(createStyles)
 
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  // TODO: auth will drive this in the future
+  const isLogged = false
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
+    <SafeAreaView style={styles.container} edges={['top']}>
+      <Tabs
+        screenOptions={{
+          headerShown: false,
+          tabBarActiveTintColor: colors.tint,
+          tabBarInactiveTintColor: colors.iconDefault,
+          tabBarStyle: {
+            elevation: 0,
+            borderTopWidth: 0,
+            backgroundColor: colors.surface,
+            height: spacing.xxl,       
+            paddingBottom: spacing.sm,
+          },
+          tabBarLabelStyle: {
+            fontSize: typography.size.caption,
+            fontFamily: typography.family.medium,
+          },
         }}
-      />
-      <Tabs.Screen
-        name="two"
-        options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
-      />
-    </Tabs>
-  );
+      >
+        <Tabs.Screen name="index" options={{ tabBarLabel: 'Home', tabBarIcon: ({ color }) => (
+          <UIIcon name="house" color={color === colors.tint ? 'tint' : 'muted'} />
+        ) }} />
+        <Tabs.Screen name="market" options={{ tabBarLabel: 'Market', tabBarIcon: ({ color }) => (
+          <UIIcon name="store-front" color={color === colors.tint ? 'tint' : 'muted'} />
+        ) }} />
+        <Tabs.Screen name="profile" options={{ tabBarLabel: 'Profile', href: isLogged ? '/profile' : null, tabBarIcon: ({ color }) => (
+          <UIIcon name="user-circle" color={color === colors.tint ? 'tint' : 'muted'} />
+        )}} />
+        <Tabs.Screen name="favorites" options={{ tabBarLabel: 'Favorites', href: isLogged ? '/favorites' : null, tabBarIcon: ({ color }) => (
+          <UIIcon name="heart" color={color === colors.tint ? 'tint' : 'muted'} />
+        ) }} />
+      </Tabs>
+    </SafeAreaView>
+  )
+}
+
+function createStyles(theme: ThemeTokens) {
+  return StyleSheet.create({
+    container: {
+      flex: 1, 
+      backgroundColor: theme.colors.background,
+    },
+  })
 }
