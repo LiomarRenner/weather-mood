@@ -47,6 +47,11 @@ readonly typography: {
       readonly standard: number  // For weights: Bold, Medium (-0.4)
       readonly open: number      // For weights: Regular and lighter (0)
     }
+    readonly maxFontScale: number // Caps system font scaling (Dynamic Type) without disabling it
+  }
+  readonly opacity: {
+    readonly pressed: number
+    readonly disabled: number
   }
 }
 
@@ -83,6 +88,11 @@ const sharedTokens = {
       standard: -0.4,
       open: 0,
     },
+    maxFontScale: 1.3,
+  },
+  opacity: {
+    pressed: 0.6,
+    disabled: 0.4,
   },
 } as const
 
