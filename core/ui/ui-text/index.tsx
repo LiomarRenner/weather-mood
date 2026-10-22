@@ -1,5 +1,3 @@
-import { memo } from 'react'
-import { UITextComponent } from './ui-text'
-
-export const UIText = memo(UITextComponent)
+// No memo: UIText usually receives children, which defeat shallow prop comparison
+export { UIText } from './ui-text'
 export { type UITextProps, type UITextColor, type UITextVariant, type UITextWeight } from './types'

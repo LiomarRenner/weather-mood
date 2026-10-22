@@ -6,7 +6,7 @@ import { type UIViewProps } from './types'
 
 // Accessibility stays neutral by default so screen readers can reach nested controls.
 // Opt in with accessible + accessibilityRole only when the block should be read as one element.
-export function UIViewComponent({
+export function UIView({
   padding,
   paddingX,
   paddingY,
