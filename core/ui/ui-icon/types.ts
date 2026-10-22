@@ -9,6 +9,10 @@ import {
   SunIcon, 
   CloudRainIcon,
   HeartIcon,
+  CloudIcon,
+  SnowflakeIcon,
+  CloudLightningIcon,
+  CloudSlashIcon,
   type Icon as PhosphorIcon,
   type IconProps,
 } from 'phosphor-react-native'
@@ -39,6 +43,10 @@ const ICONS = {
   'sun': SunIcon,
   'cloud-rain': CloudRainIcon,
   'heart': HeartIcon,
+  'cloud': CloudIcon,
+  'snowflake': SnowflakeIcon,
+  'cloud-lightning': CloudLightningIcon,
+  'cloud-slash': CloudSlashIcon,
 } as const
 
 export const ICON_REGISTRY: Record<keyof typeof ICONS, PhosphorIcon> = ICONS
