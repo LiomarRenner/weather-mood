@@ -1,5 +1,3 @@
-import { memo } from 'react'
-import { UIViewComponent } from './ui-view'
-
-export const UIView = memo(UIViewComponent)
+// Intentionally not memoized: UIView usually receives children, which defeat shallow prop comparison
+export { UIView } from './ui-view'
 export { type UIViewProps, type SpacingToken } from './types'

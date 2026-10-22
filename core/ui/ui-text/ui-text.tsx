@@ -4,7 +4,7 @@ import { useTheme } from '@/core/theme'
 import { resolveTextStyle } from './text-style'
 import { type UITextProps } from './types'
 
-export function UITextComponent({
+export function UIText({
   variant = 'body',
   weight,
   color = 'text',
