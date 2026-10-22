@@ -9,7 +9,7 @@ export default function TabLayout (): ReactNode {
   const { colors, spacing, typography } = useTheme()
   const styles = useThemedStyles(createStyles)
 
-  // TODO O auth orquestrara futuramente
+  // TODO: auth will drive this in the future
   const isLogged = false
 
   return (

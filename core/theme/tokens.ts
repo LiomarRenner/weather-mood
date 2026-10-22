@@ -25,14 +25,14 @@ export type ThemeTokens = {
   }
 readonly typography: {
     readonly family: {
-      readonly thin: string       // Detalhes técnicos / Unidades (ex: °C)
-      readonly extraLight: string // Texto secundário em telas grandes
-      readonly light: string      // Descrições curtas / Infos de vento
-      readonly regular: string    // Corpo de texto / Leitura principal
-      readonly medium: string     // Labels de navegação / Botões
-      readonly bold: string       // Títulos de seção / Cidades
-      readonly extraBold: string  // Destaques de cards
-      readonly black: string      // Temperaturas (Display)
+      readonly thin: string       // Technical details / units (e.g. °C)
+      readonly extraLight: string // Secondary text on large screens
+      readonly light: string      // Short descriptions / wind info
+      readonly regular: string    // Body copy / main reading
+      readonly medium: string     // Navigation labels / buttons
+      readonly bold: string       // Section titles / city names
+      readonly extraBold: string  // Card highlights
+      readonly black: string      // Temperatures (display)
     }
     readonly size: {
       readonly tiny: number
@@ -43,9 +43,9 @@ readonly typography: {
       readonly display: number
     }
     readonly kerning: {
-      readonly tight: number     // Para pesos: Black, ExtraBold (-1)
-      readonly standard: number  // Para pesos: Bold, Medium (-0.4)
-      readonly open: number      // Para pesos: Regular abaixo (0)
+      readonly tight: number     // For weights: Black, ExtraBold (-1)
+      readonly standard: number  // For weights: Bold, Medium (-0.4)
+      readonly open: number      // For weights: Regular and lighter (0)
     }
   }
 }
@@ -61,14 +61,14 @@ const sharedTokens = {
   },
   typography: {
     family: {
-      thin: 'Cabinet-Thin',             // IDEAL: Unidades de medida, créditos sutis
-      extraLight: 'Cabinet-ExtraLight', // IDEAL: Sublegendas em telas Retina
-      light: 'Cabinet-Light',           // IDEAL: Texto de apoio (ex: "Sensação térmica")
-      regular: 'Cabinet-Regular',       // IDEAL: O "feijão com arroz" para leitura
-      medium: 'Cabinet-Medium',         // IDEAL: Labels da TabBar e botões
-      bold: 'Cabinet-Bold',             // IDEAL: Nome da cidade, headers de cards
-      extraBold: 'Cabinet-ExtraBold',   // IDEAL: Números secundários (Umidade %)
-      black: 'Cabinet-Black',           // IDEAL: Temperatura principal (O "Show")
+      thin: 'Cabinet-Thin',             // IDEAL: units of measure, subtle credits
+      extraLight: 'Cabinet-ExtraLight', // IDEAL: subcaptions on Retina screens
+      light: 'Cabinet-Light',           // IDEAL: supporting text (e.g. "Feels like")
+      regular: 'Cabinet-Regular',       // IDEAL: the everyday reading weight
+      medium: 'Cabinet-Medium',         // IDEAL: tab bar labels and buttons
+      bold: 'Cabinet-Bold',             // IDEAL: city name, card headers
+      extraBold: 'Cabinet-ExtraBold',   // IDEAL: secondary numbers (humidity %)
+      black: 'Cabinet-Black',           // IDEAL: main temperature (the hero)
     },
     size: {
       tiny: 10,
@@ -89,11 +89,11 @@ const sharedTokens = {
 export const DefaultLightTheme: ThemeTokens = {
   ...sharedTokens,
   colors: {
-    background: '#ECEFF1',    // Cinza névoa (Lost Time Light)
+    background: '#ECEFF1',    // Mist gray (Lost Time Light)
     surface: '#FFFFFF',
-    text: '#10141D',          // Azul profundo quase preto
+    text: '#10141D',          // Deep near-black blue
     textMuted: '#546E7A',
-    tint: '#37474F',          // Slate profundo para ações
+    tint: '#37474F',          // Deep slate for actions
     iconDefault: '#90A4AE',
     border: '#CFD8DC',
     statusBar: 'dark',
@@ -103,11 +103,11 @@ export const DefaultLightTheme: ThemeTokens = {
 export const DefaultDarkTheme: ThemeTokens = {
   ...sharedTokens,
   colors: {
-    background: '#0A0C10',    // O "Preto Espacial"
-    surface: '#161B22',       // Surface azulada profunda
-    text: '#F0F6FC',          // Branco leitoso (menos agressivo)
+    background: '#0A0C10',    // "Space black"
+    surface: '#161B22',       // Deep bluish surface
+    text: '#F0F6FC',          // Milky white (softer on the eyes)
     textMuted: '#8B949E',
-    tint: '#58A6FF',          // Destaque tecnológico
+    tint: '#58A6FF',          // Tech accent
     iconDefault: '#484F58',
     border: '#30363D',
     statusBar: 'light',

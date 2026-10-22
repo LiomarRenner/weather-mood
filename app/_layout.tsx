@@ -1,4 +1,3 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome'
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
 import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
@@ -22,12 +21,12 @@ export const unstable_settings = {
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 void preventAutoHideAsync().catch(function () {
-  /* Silencioso no esqueleto */
+  /* Ignored in the walking skeleton */
 })
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    // Cabinet Grotesk (Locais)
+    // Cabinet Grotesk (local files)
     'Cabinet-Thin': require('../assets/fonts/CabinetGrotesk-Thin.otf'),
     'Cabinet-ExtraLight': require('../assets/fonts/CabinetGrotesk-Extralight.otf'),
     'Cabinet-Light': require('../assets/fonts/CabinetGrotesk-Light.otf'),
@@ -46,7 +45,7 @@ export default function RootLayout() {
   useEffect(function() {
     async function prepare(): Promise<void> {
       try {
-        // Aqui entrarão as cargas de fontes ou assets futuramente
+        // Future font or asset loading goes here
         if (loaded) await hideAsync()
       } catch (error) {
         console.warn(error)

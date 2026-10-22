@@ -1,9 +1,9 @@
 {
-  "editor.formatOnSave": false, // Desliga formatadores genéricos
+  "editor.formatOnSave": false, // Turn off generic formatters
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit", // Força o TAP a corrigir tudo (semi, quotes, etc)
-    "source.organizeImports": "never", // Desliga o nativo, pois o 'import/order' do TAP já faz isso
-    "source.sortMembers": "never" // Opcional: o TAP já cuida da lógica de membros se configurado
+    "source.fixAll.eslint": "explicit", // Let TAP fix everything (semi, quotes, etc.)
+    "source.organizeImports": "never", // Turn off the built-in one; TAP's 'import/order' handles it
+    "source.sortMembers": "never" // Optional: TAP handles member ordering when configured
   },
   "eslint.validate": [
     "typescript",

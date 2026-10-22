@@ -32,62 +32,62 @@ export default [
       'react-native': reactNative,
     },
     rules: {
-      // --- 1. ESTÉTICA & ESSÊNCIA (Inspirado no XO) ---
-      'semi': ['error', 'never'], // Proíbe ponto e vírgula para um estilo mais limpo e moderno
-      'quotes': ['error', 'single', { avoidEscape: true }], // Força aspas simples para consistência, mas permite aspas duplas para evitar escapes desnecessários
-      'indent': ['error', 2, { SwitchCase: 1 }], // Indentação de 2 espaços, com cases de switch indentados
-      'comma-dangle': ['error', 'always-multiline'], // Exige vírgula final em objetos, arrays e parâmetros multilinha para facilitar diffs e reordenação
-      'no-var': 'error', // Proíbe var para incentivar o uso de let/const, promovendo um código mais seguro e moderno
-      'prefer-const': 'error', // Encoraja o uso de const para variáveis que não são reatribuídas, melhorando a clareza e segurança do código
-      'curly': ['error', 'multi-line'], // Exige chaves para blocos de código multilinha, mas permite omissão para blocos de linha única para um estilo mais conciso
+      // --- 1. STYLE & ESSENTIALS (inspired by XO) ---
+      'semi': ['error', 'never'], // No semicolons, for a cleaner, modern style
+      'quotes': ['error', 'single', { avoidEscape: true }], // Single quotes for consistency; double quotes allowed to avoid needless escapes
+      'indent': ['error', 2, { SwitchCase: 1 }], // 2-space indent, with indented switch cases
+      'comma-dangle': ['error', 'always-multiline'], // Trailing commas in multiline objects, arrays and params for cleaner diffs and reordering
+      'no-var': 'error', // No var; use let/const for safer, modern code
+      'prefer-const': 'error', // Use const for variables that are never reassigned
+      'curly': ['error', 'multi-line'], // Braces required for multiline blocks; optional for single-line ones
 
-      // --- 2. O NÚCLEO "TAP" (Tipagem & Imutabilidade) ---
-      '@typescript-eslint/no-explicit-any': ['error', { fixToUnknown: true }], // Proíbe 'any' para garantir tipagem forte. Sugere 'unknown' como alternativa mais segura.
-      '@typescript-eslint/no-non-null-assertion': 'error', // Proíbe o operador de asserção de não nulo (!) para evitar erros de runtime. Incentiva o tratamento adequado de null/undefined.
-      '@typescript-eslint/prefer-as-const': 'error', // Encoraja o uso de 'as const' para literais que devem ser tratados como tipos literais, promovendo imutabilidade e segurança de tipos.
-      '@typescript-eslint/prefer-readonly': 'error', // Incentiva o uso de 'readonly' para propriedades que não devem ser reatribuídas, promovendo a imutabilidade e segurança do código.
-      '@typescript-eslint/no-floating-promises': ['error', { ignoreVoid: true }], // Proíbe promessas não tratadas para garantir que todas as operações assíncronas sejam adequadamente aguardadas ou tratadas. Permite 'void' para casos onde o resultado da promessa é intencionalmente ignorado (ex: fire-and-forget).
-      '@typescript-eslint/await-thenable': 'error', // Garante que apenas objetos do tipo Promise sejam aguardados com 'await', evitando erros de runtime causados por await em valores não promissores.
-      '@typescript-eslint/no-misused-promises': [ // Garante que todo retorno de função asíncrona seja tipado ou tratado
+      // --- 2. THE "TAP" CORE (typing & immutability) ---
+      '@typescript-eslint/no-explicit-any': ['error', { fixToUnknown: true }], // No 'any', to keep strong typing. Suggests 'unknown' as the safer alternative.
+      '@typescript-eslint/no-non-null-assertion': 'error', // No non-null assertion (!) to avoid runtime errors. Handle null/undefined explicitly.
+      '@typescript-eslint/prefer-as-const': 'error', // Prefer 'as const' for literals that should be literal types, for immutability and type safety.
+      '@typescript-eslint/prefer-readonly': 'error', // Prefer 'readonly' for properties that are never reassigned.
+      '@typescript-eslint/no-floating-promises': ['error', { ignoreVoid: true }], // No unhandled promises: every async operation is awaited or handled. 'void' marks intentional fire-and-forget.
+      '@typescript-eslint/await-thenable': 'error', // Only await actual Promises, avoiding await on non-thenable values.
+      '@typescript-eslint/no-misused-promises': [ // Every async function result must be typed or handled
         'error',
-        { checksVoidReturn: { attributes: false } } // Permite passar async para onPress no RN
+        { checksVoidReturn: { attributes: false } } // Allows passing async handlers to onPress in RN
       ],
       '@typescript-eslint/consistent-type-imports': [
         'error',
         {
           prefer: 'type-imports',
-          fixStyle: 'inline-type-imports', // Força o import { type X } em vez de separar em duas linhas
+          fixStyle: 'inline-type-imports', // Enforce import { type X } instead of a separate type import line
         },
   ],
 
-      // --- 3. ARQUITETURA DE FUNÇÕES (Elite Engineering) ---
-      'func-style': ['error', 'declaration', { allowArrowFunctions: false }], // Força 'function Name() {}' em vez de arrow functions para stack traces nomeados      
-      'import/no-default-export': 'error', // Proíbe export default para manter consistência de nomes nas importações     
-      'no-restricted-syntax': [ // Proíbe "import * as S". Cada import deve ser explícito.
+      // --- 3. FUNCTION ARCHITECTURE (elite engineering) ---
+      'func-style': ['error', 'declaration', { allowArrowFunctions: false }], // Enforce 'function Name() {}' over arrow functions for named stack traces      
+      'import/no-default-export': 'error', // No default exports, to keep import names consistent     
+      'no-restricted-syntax': [ // No "import * as S". Every import must be explicit.
         'error',
         {
           selector: 'ImportNamespaceSpecifier',
-          message: 'Namespace imports (import * as) são proibidos no TAP. Use named imports explícitos.',
+          message: 'Namespace imports (import * as) are not allowed in TAP. Use explicit named imports.',
         },
       ],
 
-      // --- 4. COMPLEXIDADE & MÉTRICAS ---
-      'complexity': ['error', 10], // Limita a complexidade ciclomática para manter funções simples e legíveis
-      'max-lines': ['error', { max: 200, skipBlankLines: true, skipComments: true }], // Limita o tamanho dos arquivos para promover modularidade e legibilidade
-      'max-depth': ['error', 3], // Limita a profundidade de blocos aninhados para evitar código difícil de seguir
-      'max-params': ['error', 3], // Limita o número de parâmetros em funções para promover a simplicidade e a clareza. Funções com muitos parâmetros geralmente indicam que estão fazendo mais do que deveriam.
+      // --- 4. COMPLEXITY & METRICS ---
+      'complexity': ['error', 10], // Cap cyclomatic complexity to keep functions simple and readable
+      'max-lines': ['error', { max: 200, skipBlankLines: true, skipComments: true }], // Cap file length to encourage modularity
+      'max-depth': ['error', 3], // Cap nesting depth to keep code easy to follow
+      'max-params': ['error', 3], // Cap function parameters. Many parameters usually mean a function does too much.
 
-      // --- 5. GESTÃO DE IMPORTS ---
-      'import/first': 'error', // Exige que todas as importações estejam no topo do arquivo para evitar metro bundler erros e garantir uma estrutura clara
-      'import/no-duplicates': 'error', // Proíbe importações duplicadas do mesmo módulo para evitar confusão e redundância
-      'import/no-mutable-exports': 'error', // Proíbe exportar variáveis mutáveis (garante o as const mental)
+      // --- 5. IMPORT MANAGEMENT ---
+      'import/first': 'error', // All imports at the top of the file, avoiding Metro bundler errors
+      'import/no-duplicates': 'error', // No duplicate imports of the same module
+      'import/no-mutable-exports': 'error', // No mutable exports (the "as const" mindset)
 
-      // --- 6. UNICORN (Boas Práticas Modernas) ---
-      'unicorn/filename-case': ['error', { case: 'kebabCase' }], // Força nomes de arquivos em kebab-case para consistência e legibilidade
-      'unicorn/no-array-reduce': 'error', // Proíbe o uso de reduce para casos onde métodos mais simples (map, filter) são adequados, promovendo clareza e simplicidade
-      'unicorn/prefer-module': 'error', // Encoraja o uso de módulos ES para um sistema de módulos mais moderno e eficiente
-      'unicorn/no-null': 'off', // Permitido para compatibilidade com APIs externas e TS Defensivo
-      'unicorn/prevent-abbreviations': ['error', { // Força o uso de nomes descritivos em vez de 'e', 'cb', 'val'
+      // --- 6. UNICORN (modern best practices) ---
+      'unicorn/filename-case': ['error', { case: 'kebabCase' }], // kebab-case file names
+      'unicorn/no-array-reduce': 'error', // No reduce where simpler methods (map, filter) fit
+      'unicorn/prefer-module': 'error', // Prefer ES modules
+      'unicorn/no-null': 'off', // Allowed for external API compatibility and defensive TS
+      'unicorn/prevent-abbreviations': ['error', { // Descriptive names instead of 'e', 'cb', 'val'
         replacements: {
           props: false,
           ref: false,
@@ -95,39 +95,39 @@ export default [
           params: false,
         }
       }],
-      'unicorn/no-thenable': 'error', // Proíbe objetos "thenable" que não são realmente Promises, garantindo que o código assíncrono seja mais previsível e seguro.
+      'unicorn/no-thenable': 'error', // No "thenable" objects that are not real Promises, keeping async code predictable.
 
-      // --- 7. REGRAS DE REACT HOOKS (O Guardião do Maestro) ---
-      'react-hooks/exhaustive-deps': 'error', // Garante que o Maestro sempre reaja a mudanças de dependências.
+      // --- 7. REACT HOOKS RULES (the Conductor guardian) ---
+      'react-hooks/exhaustive-deps': 'error', // Ensures the Conductor always reacts to dependency changes.
 
-      // --- 8. NO MAGIC NUMBERS (Foco em Constantes Anatômicas/Estéticas) ---
-      'no-magic-numbers': ['error', {  // Proíbe números soltos. Força o uso de 'as const' em arquivos de configuração.
-        ignore: [0, 1, -1], // Ignora números básicos de índices ou contadores
+      // --- 8. NO MAGIC NUMBERS (anatomical/aesthetic constants) ---
+      'no-magic-numbers': ['error', {  // No loose numbers. Enforces 'as const' in config files.
+        ignore: [0, 1, -1], // Ignore basic index or counter numbers
         ignoreArrayIndexes: true,
         enforceConst: true,
-        detectObjects: false // Permite números em objetos de configuração que usem 'as const'
+        detectObjects: false // Allow numbers in config objects that use 'as const'
       }],
 
-      // --- 10. REGRAS DE ELITE REACT NATIVE (Performance & Boas Práticas) ---
-      'react-native/no-inline-styles': 'error', // Proíbe estilos inline. Estilos devem estar no arquivo de estilos ou constantes.
-      'react-native/no-unused-styles': 'off', // Proíbe estilos duplicados ou não utilizados (limpeza de código).
-      'react-native/no-color-literals': 'error', // Exige que cores sejam definidas em constantes (conecta com sua regra de magic numbers).
+      // --- 10. ELITE REACT NATIVE RULES (performance & best practices) ---
+      'react-native/no-inline-styles': 'error', // No inline styles. Styles live in style files or constants.
+      'react-native/no-unused-styles': 'off', // Flags duplicate or unused styles (cleanup).
+      'react-native/no-color-literals': 'error', // Colors must come from constants (pairs with the magic numbers rule).
       'no-restricted-imports': [
-        'error',  // Força o uso de Pressable (API moderna) em vez de TouchableHighlight/Opacity.
+        'error',  // Enforce Pressable (modern API) over TouchableHighlight/Opacity.
         {
           paths: [
             {
               name: 'react-native',
               importNames: ['TouchableOpacity', 'TouchableHighlight', 'TouchableWithoutFeedback'],
-              message: 'Use Pressable do React Native para uma resposta táctil mais moderna e performática.',
+              message: 'Use React Native Pressable for modern, performant touch feedback.',
             },
           ],
         },
       ],
     },
   },
-  // --- EXCEÇÃO PARA EXPO ROUTER ---
-  // A pasta 'app' exige export default para o roteamento baseado em arquivos.
+  // --- EXPO ROUTER EXCEPTION ---
+  // The 'app' folder needs default exports for file-based routing.
   {
     files: ['app/**/*.tsx', 'app/**/*.ts'],
     rules: {
