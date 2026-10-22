@@ -55,6 +55,15 @@ readonly typography: {
   }
 }
 
+export type ThemeColors = ThemeTokens['colors']
+export type ThemeScheme = 'light' | 'dark'
+
+// A palette that replaces the system-driven light/dark colors for the whole app
+export type ThemeOverride = {
+  readonly scheme: ThemeScheme
+  readonly colors: ThemeColors
+}
+
 const sharedTokens = {
   spacing: {
     xs: 4,

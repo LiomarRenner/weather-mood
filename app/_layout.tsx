@@ -1,13 +1,14 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
+import { DarkTheme, DefaultTheme, ThemeProvider, type Theme } from '@react-navigation/native'
 import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
 import { preventAutoHideAsync, hideAsync } from 'expo-splash-screen'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import 'react-native-reanimated'
 
 import { StatusBar } from 'expo-status-bar'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { useTheme } from '@/core/theme'
+import { startWeatherTheme } from '@/modules/weather/theme-sync'
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -23,6 +24,9 @@ export const unstable_settings = {
 void preventAutoHideAsync().catch(function () {
   /* Ignored in the walking skeleton */
 })
+
+// The current city's condition themes the whole app; start before the first render
+startWeatherTheme()
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -63,12 +67,28 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const { scheme} = useTheme()
+  const { isDark, colors } = useTheme()
+
+  // Navigation chrome (headers, modal backgrounds) follows the active palette too
+  const navigationTheme = useMemo(function (): Theme {
+    const base = isDark ? DarkTheme : DefaultTheme
+    return {
+      ...base,
+      colors: {
+        ...base.colors,
+        primary: colors.tint,
+        background: colors.background,
+        card: colors.surface,
+        text: colors.text,
+        border: colors.border,
+      },
+    }
+  }, [isDark, colors])
 
   return (
     <SafeAreaProvider>
-      <ThemeProvider value={scheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <StatusBar style="auto" />
+      <ThemeProvider value={navigationTheme}>
+        <StatusBar style={colors.statusBar} />
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
