@@ -1,4 +1,4 @@
-import { useCallback, type ReactNode } from 'react'
+import { useCallback, useMemo, type ReactNode } from 'react'
 import {
   Pressable,
   StyleSheet,
@@ -14,7 +14,7 @@ export function UIPressableComponent({
   haptics = true,
   busy = false,
   disabled,
-  onPress,
+  onPressIn,
   style,
   accessibilityState,
   ...props
@@ -22,10 +22,15 @@ export function UIPressableComponent({
   const styles = useThemedStyles(createStyles)
   const isDisabled = Boolean(disabled) || busy
 
-  const handlePress = useCallback(function (event: GestureResponderEvent) {
+  // Haptics fire on touch down, not release, so feedback feels immediate
+  const handlePressIn = useCallback(function (event: GestureResponderEvent) {
     if (haptics) void impactAsync(ImpactFeedbackStyle.Light)
-    onPress?.(event)
-  }, [haptics, onPress])
+    onPressIn?.(event)
+  }, [haptics, onPressIn])
+
+  const resolvedAccessibilityState = useMemo(function () {
+    return resolveAccessibilityState(Boolean(disabled), busy, accessibilityState)
+  }, [disabled, busy, accessibilityState])
 
   const resolveStyle = useCallback(function (state: PressableStateCallbackType) {
     return [
@@ -40,8 +45,8 @@ export function UIPressableComponent({
       accessibilityRole="button"
       {...props}
       disabled={isDisabled}
-      accessibilityState={resolveAccessibilityState(Boolean(disabled), busy, accessibilityState)}
-      onPress={handlePress}
+      accessibilityState={resolvedAccessibilityState}
+      onPressIn={handlePressIn}
       style={resolveStyle}
     />
   )
