@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   useWindowDimensions,
+  type LayoutChangeEvent,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
 } from 'react-native'
@@ -55,16 +56,24 @@ export function useWeatherConductor(): WeatherConductor {
 
 export type PagerConductor = {
   readonly pageWidth: number
+  // Horizontal FlashList sizes its height from the items, so pages need an explicit height
+  readonly pageHeight: number
+  readonly onListLayout: (event: LayoutChangeEvent) => void
   readonly initialIndex: number
   readonly scrollX: SharedValue<number>
   readonly scrollHandler: ReturnType<typeof useAnimatedScrollHandler>
-  readonly backgroundStyle: ReturnType<typeof useAnimatedStyle>
+  readonly backgroundStyle: { readonly backgroundColor: string | undefined }
   readonly onMomentumScrollEnd: (event: NativeSyntheticEvent<NativeScrollEvent>) => void
 }
 
 export function usePagerConductor(pages: readonly WeatherPage[]): PagerConductor {
   const { width: pageWidth } = useWindowDimensions()
   const selectedCityId = useSelectedCityId()
+  const [pageHeight, setPageHeight] = useState(0)
+
+  const onListLayout = useCallback(function (event: LayoutChangeEvent) {
+    setPageHeight(event.nativeEvent.layout.height)
+  }, [])
 
   // Read once: afterwards the list owns the position and reports it back on settle
   const [initialIndex] = useState(function () {
@@ -103,7 +112,7 @@ export function usePagerConductor(pages: readonly WeatherPage[]): PagerConductor
     if (page) settleOnCity(page.city.id)
   }, [pages, pageWidth])
 
-  return { pageWidth, initialIndex, scrollX, scrollHandler, backgroundStyle, onMomentumScrollEnd }
+  return { pageWidth, pageHeight, onListLayout, initialIndex, scrollX, scrollHandler, backgroundStyle, onMomentumScrollEnd }
 }
 
 export function useUnitToggle(): () => void {

@@ -19,19 +19,20 @@ const UNIT_HINTS = {
 type WeatherPageProps = {
   readonly page: WeatherPageData
   readonly width: number
+  readonly height: number
 }
 
 // One city: hero + detail row. Colors come from the global theme, which follows the
 // settled page; only the background behind the pager is interpolated while dragging.
-function WeatherPageComponent({ page, width }: WeatherPageProps): ReactNode {
+function WeatherPageComponent({ page, width, height }: WeatherPageProps): ReactNode {
   const styles = useThemedStyles(createStyles)
   const unit = useUnitSystem()
   const onToggleUnit = useUnitToggle()
   const { city, weather } = page
 
   const sizeStyle = useMemo(function () {
-    return { width }
-  }, [width])
+    return { width, height }
+  }, [width, height])
 
   const temperature = formatTemperature(weather.temperatureCelsius, unit)
 

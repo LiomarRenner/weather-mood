@@ -16,8 +16,9 @@ export function createStyles(theme: ThemeTokens) {
       alignItems: 'center',
       backgroundColor: theme.colors.background,
     },
+    // No flex here: inside the horizontal scroll content flex would grow the page to an
+    // unbounded width. The size comes from the pager (window width x measured height).
     page: {
-      flex: 1,
       justifyContent: 'center',
     },
     row: {

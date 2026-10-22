@@ -28,30 +28,42 @@ type WeatherPagerProps = {
 function WeatherPagerComponent({ pages }: WeatherPagerProps): ReactNode {
   const styles = useThemedStyles(createStyles)
   const selectedCityId = useSelectedCityId()
-  const { pageWidth, initialIndex, scrollX, scrollHandler, backgroundStyle, onMomentumScrollEnd } =
-    usePagerConductor(pages)
+  const {
+    pageWidth,
+    pageHeight,
+    onListLayout,
+    initialIndex,
+    scrollX,
+    scrollHandler,
+    backgroundStyle,
+    onMomentumScrollEnd,
+  } = usePagerConductor(pages)
 
   const renderItem = useCallback(function ({ item }: ListRenderItemInfo<WeatherPageData>) {
-    return <WeatherPage page={item} width={pageWidth} />
-  }, [pageWidth])
+    return <WeatherPage page={item} width={pageWidth} height={pageHeight} />
+  }, [pageWidth, pageHeight])
 
   const currentIndex = Math.max(pages.findIndex(page => page.city.id === selectedCityId), 0)
 
   return (
     <UIView style={styles.pager}>
       <Animated.View style={[StyleSheet.absoluteFill, backgroundStyle]} />
-      <AnimatedFlashList
-        data={pages}
-        renderItem={renderItem}
-        keyExtractor={keyExtractor}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        initialScrollIndex={initialIndex}
-        onScroll={scrollHandler}
-        scrollEventThrottle={SCROLL_EVENT_THROTTLE_MS}
-        onMomentumScrollEnd={onMomentumScrollEnd}
-      />
+      <UIView style={styles.pager} onLayout={onListLayout}>
+        {pageHeight > 0 && (
+          <AnimatedFlashList
+            data={pages}
+            renderItem={renderItem}
+            keyExtractor={keyExtractor}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            initialScrollIndex={initialIndex}
+            onScroll={scrollHandler}
+            scrollEventThrottle={SCROLL_EVENT_THROTTLE_MS}
+            onMomentumScrollEnd={onMomentumScrollEnd}
+          />
+        )}
+      </UIView>
       <PageIndicator count={pages.length} currentIndex={currentIndex} pageWidth={pageWidth} scrollX={scrollX} />
     </UIView>
   )
