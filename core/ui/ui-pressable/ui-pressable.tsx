@@ -14,7 +14,7 @@ export function UIPressableComponent({
   haptics = true,
   busy = false,
   disabled,
-  onPressIn,
+  onPress,
   style,
   accessibilityState,
   ...props
@@ -22,11 +22,11 @@ export function UIPressableComponent({
   const styles = useThemedStyles(createStyles)
   const isDisabled = Boolean(disabled) || busy
 
-  // Haptics fire on touch down, not release, so feedback feels immediate
-  const handlePressIn = useCallback(function (event: GestureResponderEvent) {
+  // Haptics fire on press, not press-in: press-in also fires when a touch turns into a scroll
+  const handlePress = useCallback(function (event: GestureResponderEvent) {
     if (haptics) void impactAsync(ImpactFeedbackStyle.Light)
-    onPressIn?.(event)
-  }, [haptics, onPressIn])
+    onPress?.(event)
+  }, [haptics, onPress])
 
   const resolvedAccessibilityState = useMemo(function () {
     return resolveAccessibilityState(Boolean(disabled), busy, accessibilityState)
@@ -46,7 +46,7 @@ export function UIPressableComponent({
       {...props}
       disabled={isDisabled}
       accessibilityState={resolvedAccessibilityState}
-      onPressIn={handlePressIn}
+      onPress={handlePress}
       style={resolveStyle}
     />
   )
