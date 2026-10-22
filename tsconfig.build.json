@@ -3,9 +3,9 @@
   "extends": "./tsconfig",
   "exclude": [
     "node_modules",
-    "**/*.spec.ts",    // Exclui seus testes do Vitest
+    "**/*.spec.ts",    // Exclude Vitest tests
     "**/*.test.ts",    
     "**/__tests__/*",
-    "src/test-utils/*" // Exclui helpers de teste
+    "src/test-utils/*" // Exclude test helpers
   ]
 }

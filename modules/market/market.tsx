@@ -4,7 +4,7 @@ import type { ReactNode } from 'react'
 export function Market(): ReactNode {
   return (
     <View>
-      <Text>Market Maestro Plugged</Text>
+      <Text>Market Conductor Plugged</Text>
     </View>
   )
 }

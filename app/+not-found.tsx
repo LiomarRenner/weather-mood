@@ -19,27 +19,29 @@ export default function NotFoundScreen() {
   )
 }
 
-function createStyles(colors: ThemeTokens) {
+function createStyles(theme: ThemeTokens) {
   return StyleSheet.create({
     container: {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      padding: 20,
-      backgroundColor: colors.backgroundColor,
+      padding: theme.spacing.md,
+      backgroundColor: theme.colors.background,
     },
     title: {
-      fontSize: 20,
-      fontWeight: 'bold',
-      color: colors.text, // TODO atualizar para token específico de link quando tivermos tokens mais granulares
+      fontSize: theme.typography.size.title,
+      fontFamily: theme.typography.family.bold,
+      letterSpacing: theme.typography.kerning.standard,
+      color: theme.colors.text,
     },
     link: {
-      marginTop: 15,
-      paddingVertical: 15,
+      marginTop: theme.spacing.md,
+      paddingVertical: theme.spacing.md,
     },
     linkText: {
-      fontSize: 14, // TODO atualizar para token específico de texto secundário quando tivermos tokens mais granulares
-      color: colors.text, // TODO atualizar para token específico de link quando tivermos tokens mais granulares
+      fontSize: theme.typography.size.body,
+      fontFamily: theme.typography.family.medium,
+      color: theme.colors.tint,
     },
   })
 }

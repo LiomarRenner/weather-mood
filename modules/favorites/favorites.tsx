@@ -4,7 +4,7 @@ import type { ReactNode } from 'react'
 export function Favorites(): ReactNode {
   return (
     <View>
-      <Text>Favorites Maestro Plugged</Text>
+      <Text>Favorites Conductor Plugged</Text>
     </View>
   )
 }
