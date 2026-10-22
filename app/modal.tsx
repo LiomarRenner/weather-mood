@@ -14,25 +14,26 @@ export default function ModalScreen() {
     </View>
   )
 }
-// TODO atualizar os tokens
-function createStyles(colors: ThemeTokens) {
+
+function createStyles(theme: ThemeTokens) {
   return StyleSheet.create({
     container: {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: colors.backgroundColor,
+      backgroundColor: theme.colors.background,
     },
     title: {
-      fontSize: 20,
-      fontWeight: 'bold',
-      color: colors.text, 
+      fontSize: theme.typography.size.title,
+      fontFamily: theme.typography.family.bold,
+      letterSpacing: theme.typography.kerning.standard,
+      color: theme.colors.text,
     },
     separator: {
-      marginVertical: 30,
-      height: 1,
+      marginVertical: theme.spacing.xl,
+      height: StyleSheet.hairlineWidth,
       width: '80%',
-      backgroundColor: colors.backgroundColor,
+      backgroundColor: theme.colors.border,
     },
   })
 }
