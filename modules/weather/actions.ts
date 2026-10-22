@@ -1,18 +1,9 @@
 // actions.ts: side effects of the weather module (service calls and store updates)
 import { CITIES } from './cities'
 import { toCurrentWeather } from './commands'
-import { MockWeatherService, type MockWeatherServiceOptions } from './service/mock-weather-service'
-import { type WeatherService } from './service/weather-service'
+import { weatherService, type WeatherService } from './service'
 import { useWeatherStore } from './state'
 import { type CityId, type CurrentWeather, type WeatherByCity } from './types'
-
-// Set shouldFail to true to see the error and retry states
-const MOCK_SERVICE_OPTIONS: MockWeatherServiceOptions = {
-  latencyMs: 1200,
-  shouldFail: false,
-} as const
-
-const defaultService: WeatherService = new MockWeatherService(MOCK_SERVICE_OPTIONS)
 
 function indexByCity(readings: readonly CurrentWeather[]): WeatherByCity {
   return Object.fromEntries(readings.map(function (reading) {
@@ -21,12 +12,12 @@ function indexByCity(readings: readonly CurrentWeather[]): WeatherByCity {
 }
 
 // Loads every city at once: the pager needs each condition to animate between palettes
-export async function loadWeather(service: WeatherService = defaultService): Promise<void> {
+export async function loadWeather(service: WeatherService = weatherService): Promise<void> {
   useWeatherStore.getState().setLoading()
 
   try {
     const readings = await Promise.all(CITIES.map(async function (city) {
-      return toCurrentWeather(city.id, await service.fetchCurrentWeather(city))
+      return toCurrentWeather(city.id, await service.getCurrentWeather(city.id))
     }))
     useWeatherStore.getState().setWeather(indexByCity(readings))
   } catch {

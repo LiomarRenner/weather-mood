@@ -21,7 +21,7 @@ The home tab shows the current weather for five mocked cities. Swipe horizontall
 - While swiping, the background blends between palettes on the UI thread (Reanimated) and the page dots follow the same scroll offset; the app theme switches when the page settles.
 - Tap the temperature to switch between °C + km/h and °F + mph.
 - The selected city, unit and last condition persist with MMKV, so the app reopens on the same city and theme. First launch starts on Fortaleza.
-- Data comes from `MockWeatherService`, shaped like the [Open-Meteo](https://open-meteo.com/) forecast response. To see the error and retry states, set `shouldFail: true` in [`modules/weather/actions.ts`](modules/weather/actions.ts).
+- Data comes from a mock `WeatherService` (`createMockWeatherService`), shaped like the [Open-Meteo](https://open-meteo.com/) forecast response. To see the error and retry states, create the service with `createMockWeatherService({ shouldFail: true })` in [`modules/weather/service/index.ts`](modules/weather/service/index.ts).
 
 ## Stack
 

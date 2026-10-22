@@ -1,15 +1,17 @@
-import { type City } from '../types'
+import { CITIES } from '../cities'
+import { type CityId } from '../types'
 import { CITY_FIXTURES, METRIC_CURRENT_UNITS } from './mock-fixtures'
 import { type OpenMeteoForecastResponse } from './open-meteo'
 import { type WeatherService } from './weather-service'
 
 export type MockWeatherServiceOptions = {
   // Simulated network latency per request
-  readonly latencyMs: number
+  readonly latencyMs?: number
   // Forces every request to reject, to exercise the error and retry states
-  readonly shouldFail: boolean
+  readonly shouldFail?: boolean
 }
 
+const DEFAULT_LATENCY_MS = 1200
 const MOCK_GENERATION_TIME_MS = 0.05
 
 function wait(durationMs: number): Promise<void> {
@@ -19,21 +21,19 @@ function wait(durationMs: number): Promise<void> {
 }
 
 // Returns canned data shaped exactly like the Open-Meteo forecast response
-export class MockWeatherService implements WeatherService {
-  private readonly options: MockWeatherServiceOptions
+export function createMockWeatherService(options: MockWeatherServiceOptions = {}): WeatherService {
+  const latencyMs = options.latencyMs ?? DEFAULT_LATENCY_MS
+  const shouldFail = options.shouldFail ?? false
 
-  constructor(options: MockWeatherServiceOptions) {
-    this.options = options
-  }
+  async function getCurrentWeather(cityId: CityId): Promise<OpenMeteoForecastResponse> {
+    await wait(latencyMs)
 
-  async fetchCurrentWeather(city: City): Promise<OpenMeteoForecastResponse> {
-    await wait(this.options.latencyMs)
-
-    if (this.options.shouldFail) {
-      throw new Error(`Mock weather request failed for ${city.name}`)
+    const city = CITIES.find(candidate => candidate.id === cityId)
+    if (shouldFail || !city) {
+      throw new Error(`Mock weather request failed for ${cityId}`)
     }
 
-    const fixture = CITY_FIXTURES[city.id]
+    const fixture = CITY_FIXTURES[cityId]
 
     return {
       latitude: city.latitude,
@@ -47,4 +47,6 @@ export class MockWeatherService implements WeatherService {
       current: fixture.current,
     }
   }
+
+  return { getCurrentWeather }
 }
