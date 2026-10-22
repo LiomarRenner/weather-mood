@@ -1,1 +1,1 @@
-// useState, zustand, and other state management utilities for the weather module, --- IGNORE ---
+// state.ts: State management (useState, zustand, etc.) for the weather module

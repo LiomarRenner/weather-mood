@@ -4,7 +4,7 @@ import type { ReactNode } from 'react'
 export function Weather(): ReactNode {
   return (
     <View>
-      <Text>Weather Maestro Plugged</Text>
+      <Text>Weather Conductor Plugged</Text>
     </View>
   )
 }
