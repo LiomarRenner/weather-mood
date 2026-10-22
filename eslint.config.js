@@ -129,7 +129,7 @@ export default [
   // --- EXPO ROUTER EXCEPTION ---
   // The 'app' folder needs default exports for file-based routing.
   {
-    files: ['app/**/*.tsx', 'app/**/*.ts'],
+    files: ['app/**/*.tsx', 'app/**/*.ts', 'vitest.config.ts'],
     rules: {
       'import/no-default-export': 'off',
     },
