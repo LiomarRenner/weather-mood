@@ -57,11 +57,11 @@ The app uses native modules (MMKV), so it runs as a **development build**. Expo 
 
 ```sh
 npm install
-npx expo run:ios       # or: npx expo run:android — builds and installs the dev client
-npx expo start         # afterwards: start the dev server for the installed build
+npm run ios        # expo run:ios — builds and installs the dev client (or: npm run android)
+npm start          # afterwards: start the dev server for the installed build
 ```
 
-The first native build takes a while; later runs only need `npx expo start`. Rebuild with `npx expo run:ios` / `run:android` whenever native dependencies change.
+The first native build takes a while; later runs only need `npm start`. Rebuild with `npm run ios` / `npm run android` whenever native dependencies change. The app id is `com.weathermood` on both platforms.
 
 ## Quality checks
 
