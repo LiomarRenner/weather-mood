@@ -1,9 +1,10 @@
 export { useTheme, useThemedStyles } from './use-theme'
-export { type ThemeTokens, DefaultLightTheme, DefaultDarkTheme } from './tokens'
 export {
+  type ThemeTokens,
   type ThemeColors,
   type ThemeOverride,
   type ThemeScheme,
-  setThemeOverride,
-  useThemeOverride,
-} from './theme-store'
+  DefaultLightTheme,
+  DefaultDarkTheme,
+} from './tokens'
+export { setThemeOverride, useThemeOverride } from './theme-store'

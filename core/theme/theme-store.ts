@@ -1,14 +1,5 @@
 import { create } from 'zustand'
-import { type ThemeTokens } from './tokens'
-
-export type ThemeColors = ThemeTokens['colors']
-export type ThemeScheme = 'light' | 'dark'
-
-// A palette that replaces the system-driven light/dark colors for the whole app
-export type ThemeOverride = {
-  readonly scheme: ThemeScheme
-  readonly colors: ThemeColors
-}
+import { type ThemeOverride } from './tokens'
 
 type ThemeStoreState = {
   readonly override: ThemeOverride | null
