@@ -46,7 +46,7 @@ The home tab shows the current weather for five mocked cities. Swipe horizontall
 ```
 app/        Routes (Expo Router)
 core/       Cross-cutting building blocks: theme, UI primitives
-modules/    Feature modules (weather, market, favorites, profile)
+modules/    Feature modules (weather, market)
 ```
 
 Each feature module splits its concerns into `state`, `actions` (side effects), `commands` (pure business logic) and a `view-model` that wires them to the screen.
